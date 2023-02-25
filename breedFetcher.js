@@ -1,15 +1,17 @@
 const request = require("request");
 
 const url =
-  "https://api.thecatapi.com/v1/breeds/search?q=" + process.argv[2].slice(0, 3);
+  "https://api.thecatapi.com/v1/breeds/search?q=" + process.argv[2]
+
 
 request(url, (error, response, body) => {
+  const data = JSON.parse(body)
   if (error) {
     console.log(error);
-  } else if (url !== true) {
+  } else if (data.length === 0) {
     console.log("There is no information on that breed, please try again!");
   } else {
-    const data = JSON.parse(body);
     console.log(data[0].description);
   }
 });
+
